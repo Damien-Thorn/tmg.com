@@ -1,14 +1,20 @@
+/* Import Google Fonts */
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:200,300');
 
+
+/* Fonts variables */
 $roboto: 'Roboto', sans-serif;
 $titillium: 'Titillium Web', sans-serif;
 
+/* Flex with column direction */
 @mixin flex_column() {
 	display: flex;
 	flex-direction: column;
 } 
 
+/* Set fon mixin */
 @mixin set_font ($name: 'Roboto', $size: 1rem, $weight: normal, $spacing: 0, $lheight: normal) {
 	font-family: $name;
 	font-size: $size;
@@ -30,6 +36,7 @@ html {
 	font-size: 10px;
 	min-height: 100%;
 	@include flex_column();
+	-webkit-font-smoothing:antialiased;
 }
 
 body {
@@ -38,12 +45,21 @@ body {
 	@include flex_column();
 }
 
+.sandwich {
+	display: none;
+	width: 18px;
+	height: 12px;
+	fill: #777;
+	opacity: 0.5;
+}
+
 .top-bar {
 	width: 100%;
 	background-color: #000;
 	height: 50px;
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 .top-bar nav {
@@ -54,25 +70,68 @@ body {
 	float: left;
 	margin-right: 30px;
 	color: #777;
-	@include set_font ($roboto, 1.5rem, 300, 0.08rem)
+	@include set_font ($roboto, 1.5rem, 300, 0.08rem);
+	-webkit-font-smoothing:subpixel-antialiased;
 }
 
 .top-bar nav a:hover {
 	color: #ccc;
 }
 
+.lang {
+	position: relative;
+	width: 20px;
+	height: 20px;
+}
+
+.lang svg{
+	fill: #666;
+	width: 20px;
+	height: 20px;
+}
+
+.lang svg:hover {
+	cursor: pointer;
+	fill: #bbb;
+}
+
+.lang-dropdown {
+	display: none;
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	padding-left: 15px;
+}
+
+.lang-dropdown a {
+	color: #777;
+	@include set_font ($roboto, 1.3rem, 400, 0.1rem, 0);
+	-webkit-font-smoothing:subpixel-antialiased;
+	text-align: center;
+	margin-right: 8px;
+}
+
+.lang-dropdown a:hover {
+	color: #ccc;
+}
+
+.lang:hover .lang-dropdown {
+	display: block;
+}
+
 .logo {
-	height: 26px;
-	width: auto;
 	float: left;
 	margin: 0 36px 0 50px;
 }
 
+.logo img {
+	margin: 0;
+}
+
 .index-headers {
-	font-family: $titillium;
 	text-align: center;
-	color: #777;
 	margin: 50px auto;
+	padding: 0 30px;
 }
 
 .index-headers p.studio {
@@ -81,13 +140,10 @@ body {
 }
 
 .index-headers p.directions {
-	@include set_font ($titillium, 3rem, 200, 0.25rem);
+	@include set_font ($titillium, 3rem, 200, 0.25rem, 3.3rem);
+	margin-top: 6px;
 	color: #999;
 	text-transform: uppercase;
-}
-
-.index-headers p.directions span:before {
-	content: '\00B7 \00A0';
 }
 
 .container {
@@ -133,7 +189,7 @@ body {
 	border-radius: 50%;
 	background-color: rgba(22,22,22,.5);
 	position: absolute;
-	top: 260px;
+	top: calc(50% - 44px);
 	color: #fff;
 	font-size: 200%;
 	display: flex;
@@ -187,9 +243,14 @@ footer div {
 	letter-spacing: 0.05rem;
 }
 
-footer div a {
-	color: #777;
+footer div a, footer div span {
+	color: #444;
 }
+
+footer div span:not(:first-child) {
+	margin-left: 5px;
+}
+
 footer div a:hover {
 	color: #ccc;
 }
